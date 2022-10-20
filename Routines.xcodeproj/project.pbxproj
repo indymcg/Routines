@@ -11,6 +11,12 @@
 		298A80702900CFF900631DA3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298A806F2900CFF900631DA3 /* ContentView.swift */; };
 		298A80722900CFF900631DA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 298A80712900CFF900631DA3 /* Assets.xcassets */; };
 		298A80752900CFF900631DA3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 298A80742900CFF900631DA3 /* Preview Assets.xcassets */; };
+		298A807D2900D02500631DA3 /* Routines.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 298A807B2900D02400631DA3 /* Routines.xcdatamodeld */; };
+		298A80822900D10700631DA3 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298A807E2900D10700631DA3 /* Task+CoreDataClass.swift */; };
+		298A80832900D10700631DA3 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298A807F2900D10700631DA3 /* Task+CoreDataProperties.swift */; };
+		298A80842900D10700631DA3 /* Routine+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298A80802900D10700631DA3 /* Routine+CoreDataClass.swift */; };
+		298A80852900D10700631DA3 /* Routine+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298A80812900D10700631DA3 /* Routine+CoreDataProperties.swift */; };
+		298A80892900D31900631DA3 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298A80882900D31900631DA3 /* PersistenceController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +25,12 @@
 		298A806F2900CFF900631DA3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		298A80712900CFF900631DA3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		298A80742900CFF900631DA3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		298A807C2900D02400631DA3 /* Routines.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Routines.xcdatamodel; sourceTree = "<group>"; };
+		298A807E2900D10700631DA3 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
+		298A807F2900D10700631DA3 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		298A80802900D10700631DA3 /* Routine+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Routine+CoreDataClass.swift"; sourceTree = "<group>"; };
+		298A80812900D10700631DA3 /* Routine+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Routine+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		298A80882900D31900631DA3 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +64,9 @@
 			isa = PBXGroup;
 			children = (
 				298A806D2900CFF900631DA3 /* RoutinesApp.swift */,
-				298A806F2900CFF900631DA3 /* ContentView.swift */,
-				298A80712900CFF900631DA3 /* Assets.xcassets */,
+				298A807B2900D02400631DA3 /* Routines.xcdatamodeld */,
+				298A80862900D11300631DA3 /* Model */,
+				298A80872900D13000631DA3 /* Views */,
 				298A80732900CFF900631DA3 /* Preview Content */,
 			);
 			path = Routines;
@@ -62,9 +75,30 @@
 		298A80732900CFF900631DA3 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				298A80712900CFF900631DA3 /* Assets.xcassets */,
 				298A80742900CFF900631DA3 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		298A80862900D11300631DA3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				298A807E2900D10700631DA3 /* Task+CoreDataClass.swift */,
+				298A807F2900D10700631DA3 /* Task+CoreDataProperties.swift */,
+				298A80802900D10700631DA3 /* Routine+CoreDataClass.swift */,
+				298A80812900D10700631DA3 /* Routine+CoreDataProperties.swift */,
+				298A80882900D31900631DA3 /* PersistenceController.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		298A80872900D13000631DA3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				298A806F2900CFF900631DA3 /* ContentView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +171,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				298A80842900D10700631DA3 /* Routine+CoreDataClass.swift in Sources */,
 				298A80702900CFF900631DA3 /* ContentView.swift in Sources */,
 				298A806E2900CFF900631DA3 /* RoutinesApp.swift in Sources */,
+				298A80822900D10700631DA3 /* Task+CoreDataClass.swift in Sources */,
+				298A80852900D10700631DA3 /* Routine+CoreDataProperties.swift in Sources */,
+				298A80832900D10700631DA3 /* Task+CoreDataProperties.swift in Sources */,
+				298A807D2900D02500631DA3 /* Routines.xcdatamodeld in Sources */,
+				298A80892900D31900631DA3 /* PersistenceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +379,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		298A807B2900D02400631DA3 /* Routines.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				298A807C2900D02400631DA3 /* Routines.xcdatamodel */,
+			);
+			currentVersion = 298A807C2900D02400631DA3 /* Routines.xcdatamodel */;
+			path = Routines.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 298A80622900CFF900631DA3 /* Project object */;
 }
