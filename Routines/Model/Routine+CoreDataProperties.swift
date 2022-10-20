@@ -11,7 +11,17 @@ import CoreData
 
 
 extension Routine {
-
+    static func createWith(title: String, in moc: NSManagedObjectContext) {
+        let newRoutine = self.init(context: moc)
+        newRoutine.title = title
+        
+        do {
+            try moc.save()
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+    }
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Routine> {
         return NSFetchRequest<Routine>(entityName: "Routine")
     }
