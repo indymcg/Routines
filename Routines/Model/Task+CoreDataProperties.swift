@@ -14,8 +14,9 @@ extension Task {
     static func createWith(name: String, isCompleted: Bool, inRoutine routine: Routine, using moc: NSManagedObjectContext) {
         let task = Task(context: moc)
         task.name = name
+        task.id = UUID()
         task.isCompleted = false
-        task.routine = routine
+        task.associatedRoutine = routine
         
         do {
             try moc.save()
@@ -32,7 +33,7 @@ extension Task {
     @NSManaged public var name: String?
     @NSManaged public var id: UUID?
     @NSManaged public var isCompleted: Bool
-    @NSManaged public var routine: Routine
+    @NSManaged public var associatedRoutine: Routine
     
     public var wrappedName: String {
         name ?? "New task"

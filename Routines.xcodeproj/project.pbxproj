@@ -17,6 +17,8 @@
 		298A80842900D10700631DA3 /* Routine+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298A80802900D10700631DA3 /* Routine+CoreDataClass.swift */; };
 		298A80852900D10700631DA3 /* Routine+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298A80812900D10700631DA3 /* Routine+CoreDataProperties.swift */; };
 		298A80892900D31900631DA3 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298A80882900D31900631DA3 /* PersistenceController.swift */; };
+		298A808B2900D66500631DA3 /* SingleRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298A808A2900D66500631DA3 /* SingleRoutineView.swift */; };
+		29CDCA6C2901F61D005D93F8 /* NewRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CDCA6B2901F61D005D93F8 /* NewRoutineView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		298A80802900D10700631DA3 /* Routine+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Routine+CoreDataClass.swift"; sourceTree = "<group>"; };
 		298A80812900D10700631DA3 /* Routine+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Routine+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		298A80882900D31900631DA3 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		298A808A2900D66500631DA3 /* SingleRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleRoutineView.swift; sourceTree = "<group>"; };
+		29CDCA6B2901F61D005D93F8 /* NewRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRoutineView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,8 @@
 			isa = PBXGroup;
 			children = (
 				298A806F2900CFF900631DA3 /* ContentView.swift */,
+				298A808A2900D66500631DA3 /* SingleRoutineView.swift */,
+				29CDCA6B2901F61D005D93F8 /* NewRoutineView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -172,8 +178,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				298A80842900D10700631DA3 /* Routine+CoreDataClass.swift in Sources */,
+				298A808B2900D66500631DA3 /* SingleRoutineView.swift in Sources */,
 				298A80702900CFF900631DA3 /* ContentView.swift in Sources */,
 				298A806E2900CFF900631DA3 /* RoutinesApp.swift in Sources */,
+				29CDCA6C2901F61D005D93F8 /* NewRoutineView.swift in Sources */,
 				298A80822900D10700631DA3 /* Task+CoreDataClass.swift in Sources */,
 				298A80852900D10700631DA3 /* Routine+CoreDataProperties.swift in Sources */,
 				298A80832900D10700631DA3 /* Task+CoreDataProperties.swift in Sources */,

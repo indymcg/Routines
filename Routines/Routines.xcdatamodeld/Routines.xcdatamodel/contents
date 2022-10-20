@@ -3,12 +3,12 @@
     <entity name="Routine" representedClassName="Routine" syncable="YES">
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
-        <relationship name="associatedTasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Task" inverseName="routine" inverseEntity="Task"/>
+        <relationship name="associatedTasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Task" inverseName="associatedRoutine" inverseEntity="Task"/>
     </entity>
     <entity name="Task" representedClassName="Task" syncable="YES">
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isCompleted" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
-        <relationship name="routine" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Routine" inverseName="associatedTasks" inverseEntity="Routine"/>
+        <relationship name="associatedRoutine" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Routine" inverseName="associatedTasks" inverseEntity="Routine"/>
     </entity>
 </model>

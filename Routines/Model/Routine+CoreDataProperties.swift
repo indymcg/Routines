@@ -14,6 +14,7 @@ extension Routine {
     static func createWith(title: String, in moc: NSManagedObjectContext) {
         let newRoutine = self.init(context: moc)
         newRoutine.title = title
+        newRoutine.id = UUID()
         
         do {
             try moc.save()
