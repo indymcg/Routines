@@ -24,10 +24,17 @@ struct ContentView: View {
                         SingleRoutineView(routine: routine)
                     } label:{
                         HStack {
+                            Image(systemName: "circle")
+                                .foregroundColor(routine.allTasksCompleted ? .green : .red)
                             Text(routine.wrappedTitle)
                             Spacer()
-                            Text(routine.dueDate, style: .time)
+                            Text(routine.categorySelection.description)
+                                HStack {
+                                    Image(systemName: "clock.fill")
+                                    Text(routine.dueDate, style: .time)
+                                }
                             }
+                        .padding()
                         }
                     }
                 }
@@ -36,11 +43,15 @@ struct ContentView: View {
             .navigationTitle("Routines")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("New Routine") {
+                    Button {
                         showingSheet.toggle()
+                    } label: {
+                        HStack {
+                            Text("New Routine")
+                            Image(systemName: "plus.circle")
+                        }
                     }
-                    .sheet(isPresented: $showingSheet) { NewRoutineView()
-                    }
+                    .sheet(isPresented: $showingSheet) { NewRoutineView() }
                 }
             }
         }
@@ -58,20 +69,28 @@ struct NewRoutineView: View {
     @Environment(\.managedObjectContext) var moc
     @State var text: String = ""
     @State var dueDate = Date()
+    @State var category: Routine.Category = .selfCare
+    let allCases = Routine.Category.allCases
     
     var body: some View {
         NavigationView {
             Form {
                 Section {
                     TextField("Title", text: $text)
-                    DatePicker("Complete by:", selection: $dueDate, displayedComponents: .hourAndMinute)
+                    DatePicker("Date:", selection: $dueDate, displayedComponents: .date)
+                    Picker("Category:", selection: $category) {
+                        ForEach(allCases, id: \.self) { value in
+                            Text(value.description)
+                        }
+                    }
+                    
                 }
             }
             .navigationTitle("New Routine")
             .navigationBarItems(trailing:
             Button("Save") {
                 if !self.text.isEmpty {
-                    Routine.createWith(title: self.text, dueDate: self.dueDate, in: moc)
+                    Routine.createWith(title: self.text, dueDate: self.dueDate, categorySelection: self.category, categoryValue: self.category.rawValue, in: moc)
                     dismiss()
                 }
             })

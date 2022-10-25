@@ -12,12 +12,14 @@ import SwiftUI
 
 
 extension Routine {
-    static func createWith(title: String, dueDate: Date, in moc: NSManagedObjectContext) {
+    static func createWith(title: String, dueDate: Date, categorySelection: Category, categoryValue: Int16, in moc: NSManagedObjectContext) {
         let newRoutine = self.init(context: moc)
         newRoutine.title = title
         newRoutine.id = UUID()
         newRoutine.dueDate = dueDate
         newRoutine.allTasksCompleted = false
+        newRoutine.categoryValue = categoryValue
+        newRoutine.categorySelection = categorySelection
         
         do {
             try moc.save()
@@ -33,9 +35,49 @@ extension Routine {
     @NSManaged public var dueDate: Date
     @NSManaged public var associatedTasks: [Task]
     @NSManaged public var allTasksCompleted: Bool
+    @NSManaged public var categoryValue: Int16
+    var categorySelection: Category {
+        get {
+            return Category(rawValue: self.categoryValue)
+        }
+        set {
+            self.categoryValue = newValue.rawValue
+            print(categoryValue)
+        }
+    }
+    
     
     public var wrappedTitle: String {
         title ?? "New Routine"
+    }
+    
+    @objc public enum Category: Int16, CaseIterable {
+       case selfCare = 0
+       case work = 1
+       case school = 2
+       case chores = 3
+       case other = 4
+        
+        public init(rawValue: Int16) {
+            switch rawValue {
+            case 0: self = .selfCare
+            case 1: self = .work
+            case 2: self = .school
+            case 3: self = .chores
+            case 4: self = .other
+            default: self = .selfCare
+            }
+        }
+        
+        var description: String {
+            switch self {
+            case .selfCare: return "Self Care"
+            case .work: return "Work"
+            case .school: return "School"
+            case .chores: return "Chores"
+            case .other: return "Other"
+            }
+        }
     }
     
     static func basicFetchRequest() -> FetchRequest<Routine> {
@@ -61,13 +103,15 @@ extension Routine {
     }
     
     func resetTaskCompletion() {
-        if allTasksCompleted {
+        var currentTime = Date.now
+        print("current time: \(currentTime)")
+        print("dueDate: \(dueDate)")
+        if currentTime == dueDate {
             allTasksCompleted = false 
             for task in associatedTasks {
                 task.isCompleted = false
             }
         }
-        //else if that gets current time and comapres to dueDate to automatically reset task completion
     }
 
 }
