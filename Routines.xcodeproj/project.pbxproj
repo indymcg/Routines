@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		290B26C029085BCB00FA30BA /* TaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290B26BF29085BCB00FA30BA /* TaskRowView.swift */; };
 		298A806E2900CFF900631DA3 /* RoutinesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298A806D2900CFF900631DA3 /* RoutinesApp.swift */; };
 		298A80702900CFF900631DA3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298A806F2900CFF900631DA3 /* ContentView.swift */; };
 		298A80722900CFF900631DA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 298A80712900CFF900631DA3 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		290B26BF29085BCB00FA30BA /* TaskRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRowView.swift; sourceTree = "<group>"; };
 		298A806A2900CFF900631DA3 /* Routines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routines.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		298A806D2900CFF900631DA3 /* RoutinesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinesApp.swift; sourceTree = "<group>"; };
 		298A806F2900CFF900631DA3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 			children = (
 				298A806F2900CFF900631DA3 /* ContentView.swift */,
 				298A808A2900D66500631DA3 /* SingleRoutineView.swift */,
+				290B26BF29085BCB00FA30BA /* TaskRowView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 			files = (
 				298A80842900D10700631DA3 /* Routine+CoreDataClass.swift in Sources */,
 				298A808B2900D66500631DA3 /* SingleRoutineView.swift in Sources */,
+				290B26C029085BCB00FA30BA /* TaskRowView.swift in Sources */,
 				298A80702900CFF900631DA3 /* ContentView.swift in Sources */,
 				298A806E2900CFF900631DA3 /* RoutinesApp.swift in Sources */,
 				298A80822900D10700631DA3 /* Task+CoreDataClass.swift in Sources */,

@@ -17,6 +17,7 @@ extension Routine {
         newRoutine.title = title
         newRoutine.id = UUID()
         newRoutine.dueDate = dueDate
+        newRoutine.allTasksCompleted = false
         
         do {
             try moc.save()
@@ -31,6 +32,7 @@ extension Routine {
     @NSManaged public var id: UUID
     @NSManaged public var dueDate: Date
     @NSManaged public var associatedTasks: [Task]
+    @NSManaged public var allTasksCompleted: Bool
     
     public var wrappedTitle: String {
         title ?? "New Routine"
@@ -44,6 +46,29 @@ extension Routine {
          let mySortDescriptor = NSSortDescriptor(key: "dueDate", ascending: true)
          return FetchRequest<Routine>(entity: Routine.entity(), sortDescriptors: [mySortDescriptor])
      }
+    
+    func determineRoutineCompletion() {
+        var counter = 0
+        for task in associatedTasks {
+            if task.isCompleted {
+                counter += 1
+            }
+        }
+        if counter == associatedTasks.count {
+            allTasksCompleted = true
+            print("all tasks complete")
+        }
+    }
+    
+    func resetTaskCompletion() {
+        if allTasksCompleted {
+            allTasksCompleted = false 
+            for task in associatedTasks {
+                task.isCompleted = false
+            }
+        }
+        //else if that gets current time and comapres to dueDate to automatically reset task completion
+    }
 
 }
 

@@ -9,47 +9,71 @@ import SwiftUI
 import CoreData
 
 struct SingleRoutineView: View {
-    @Environment(\.managedObjectContext) var moc
     @State var showingTaskSheet = false
-    var routine: Routine
-    var tasks: [Task]
     
-    init(routine: Routine) {
-        self.routine = routine
-        self.tasks = routine.associatedTasks
+        var routine: Routine
+        var tasks: [Task]
+    
+        init(routine: Routine) {
+            self.routine = routine
+            self.tasks = routine.associatedTasks
+        }
+
+    var body: some View {
+        List {
+            ForEach(tasks) { task in
+                TaskView(task: task)
+            }
+        }
+        Button("New Task") {
+            showingTaskSheet.toggle()
+        }
+        .sheet(isPresented: $showingTaskSheet) {
+            NewTaskView(routine: self.routine)
+        }
+        .navigationTitle(routine.wrappedTitle)
+    }
+}
+
+struct TaskView: View {
+    @State var showingCompletedSheet = false
+    @Environment(\.managedObjectContext) var moc
+    let task: Task
+    let name: String
+    @State var isCompleted: Bool = false
+    let associatedRoutine: Routine
+    
+    init(task: Task) {
+        self.task = task
+        self.name = task.wrappedName
+        self.isCompleted = task.isCompleted
+        self.associatedRoutine = task.associatedRoutine
     }
     
     
     var body: some View {
-        VStack {
-            List {
-                ForEach(tasks) { task in
-                    Button {
-                       task.isCompleted = true
-                        
+        HStack {
+                Button {
+                    self.task.isCompleted = true
+                    isCompleted = true
+                    associatedRoutine.determineRoutineCompletion()
+                        if associatedRoutine.allTasksCompleted {
+                            showingCompletedSheet = true
+                        }
                         do {
                             try moc.save()
                         } catch {
                             print("failed to save completed status \(error)")
                         }
                     } label: {
-                        HStack {
-                            Image(systemName: task.isCompleted ? "checkmark" : "circle")
-                            Text(task.wrappedName)
-                        }
+                        TaskRowView(isTaskCompleted: isCompleted, taskName: name)
                     }
                 }
-            }
-            Button("New Task") {
-                showingTaskSheet.toggle()
-            }
-            .sheet(isPresented: $showingTaskSheet) {
-                NewTaskView(routine: self.routine)
+                .sheet(isPresented: $showingCompletedSheet) {
+                    CompletedRoutineView(routine: self.associatedRoutine)
+                }
             }
         }
-        .navigationTitle(routine.wrappedTitle)
-    }
-}
 
 struct NewTaskView: View {
     @Environment(\.dismiss) var dismiss
@@ -70,6 +94,31 @@ struct NewTaskView: View {
                     dismiss()
                 }
             })
+        }
+    }
+}
+
+struct CompletedRoutineView: View {
+    @Environment(\.dismiss) var dismiss
+    let routine: Routine
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                Text("You completed all tasks in your routine!")
+                    .font(.title)
+                
+                Button {
+                    routine.resetTaskCompletion()
+                    dismiss()
+                } label: {
+                    Text("Reset Tasks")
+                        .foregroundColor(.white)
+                        .background(.blue)
+                        .frame(width: 100, height: 80)
+                }
+                .padding()
+            }
         }
     }
 }
