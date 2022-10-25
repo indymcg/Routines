@@ -8,13 +8,15 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 
 extension Routine {
-    static func createWith(title: String, in moc: NSManagedObjectContext) {
+    static func createWith(title: String, dueDate: Date, in moc: NSManagedObjectContext) {
         let newRoutine = self.init(context: moc)
         newRoutine.title = title
         newRoutine.id = UUID()
+        newRoutine.dueDate = dueDate
         
         do {
             try moc.save()
@@ -23,17 +25,25 @@ extension Routine {
             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
         }
     }
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Routine> {
-        return NSFetchRequest<Routine>(entityName: "Routine")
-    }
 
-    @NSManaged public var title: String?
-    @NSManaged public var id: UUID?
+
+    @NSManaged public var title: String
+    @NSManaged public var id: UUID
+    @NSManaged public var dueDate: Date
     @NSManaged public var associatedTasks: [Task]
     
     public var wrappedTitle: String {
         title ?? "New Routine"
     }
+    
+    static func basicFetchRequest() -> FetchRequest<Routine> {
+         return FetchRequest<Routine>(entity: Routine.entity(), sortDescriptors: [])
+     }
+     
+     static func sortedFetchRequest() -> FetchRequest<Routine> {
+         let mySortDescriptor = NSSortDescriptor(key: "dueDate", ascending: true)
+         return FetchRequest<Routine>(entity: Routine.entity(), sortDescriptors: [mySortDescriptor])
+     }
 
 }
 

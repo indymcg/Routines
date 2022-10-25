@@ -8,10 +8,11 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 
 extension Task {
-    static func createWith(name: String, isCompleted: Bool, inRoutine routine: Routine, using moc: NSManagedObjectContext) {
+    static func createWith(name: String, inRoutine routine: Routine, using moc: NSManagedObjectContext) {
         let task = Task(context: moc)
         task.name = name
         task.id = UUID()
@@ -26,10 +27,6 @@ extension Task {
         }
     }
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Task> {
-        return NSFetchRequest<Task>(entityName: "Task")
-    }
-
     @NSManaged public var name: String?
     @NSManaged public var id: UUID?
     @NSManaged public var isCompleted: Bool
@@ -38,7 +35,10 @@ extension Task {
     public var wrappedName: String {
         name ?? "New task"
     }
-
+    
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Task> {
+        return NSFetchRequest<Task>(entityName: "Task")
+    }
 }
 
 extension Task: Identifiable {
