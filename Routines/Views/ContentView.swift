@@ -26,6 +26,7 @@ struct ContentView: View {
                                 SingleRoutineView(routine: routine)
                             } label:{
                                     RoutineCardView(routineName: routine.title, categoryName: routine.categorySelection.description, date: routine.dueDate)
+                                    .padding(.bottom, 5)
                                 }
                             }
                         .frame(width: 400)

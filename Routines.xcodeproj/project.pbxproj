@@ -127,12 +127,28 @@
 			isa = PBXGroup;
 			children = (
 				298A806F2900CFF900631DA3 /* ContentView.swift */,
-				298A808A2900D66500631DA3 /* SingleRoutineView.swift */,
-				29CF4F882908631600D786DC /* TaskView.swift */,
-				290B26BF29085BCB00FA30BA /* TaskRowView.swift */,
-				299AB9832908ADFD00068CF4 /* RoutineCardView.swift */,
+				299AB9862908D9B300068CF4 /* Routines */,
+				299AB9852908D99300068CF4 /* Tasks */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		299AB9852908D99300068CF4 /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				290B26BF29085BCB00FA30BA /* TaskRowView.swift */,
+				29CF4F882908631600D786DC /* TaskView.swift */,
+			);
+			path = Tasks;
+			sourceTree = "<group>";
+		};
+		299AB9862908D9B300068CF4 /* Routines */ = {
+			isa = PBXGroup;
+			children = (
+				298A808A2900D66500631DA3 /* SingleRoutineView.swift */,
+				299AB9832908ADFD00068CF4 /* RoutineCardView.swift */,
+			);
+			path = Routines;
 			sourceTree = "<group>";
 		};
 		29CF4F8F2908672900D786DC /* RoutinesTests */ = {

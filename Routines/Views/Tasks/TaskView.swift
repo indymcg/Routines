@@ -23,28 +23,31 @@ struct TaskView: View {
     }
     
     var body: some View {
-        HStack {
-                Button {
-                    self.task.isCompleted = true
-                    isCompleted = true
-                    associatedRoutine.determineRoutineCompletion()
-                        if associatedRoutine.allTasksCompleted {
-                            showingCompletedSheet = true
-                            associatedRoutine.resetTaskCompletion()
+            HStack {
+                    Button {
+                        self.task.isCompleted = true
+                        isCompleted = true
+                        associatedRoutine.determineRoutineCompletion()
+                            if associatedRoutine.allTasksCompleted {
+                                showingCompletedSheet = true
+                                associatedRoutine.resetTaskCompletion()
+                            }
+                            do {
+                                try moc.save()
+                            } catch {
+                                print("failed to save completed status \(error)")
+                            }
+                        } label: {
+                            VStack {
+                                TaskRowView(isTaskCompleted: isCompleted, taskName: name)
+                                    .foregroundColor(.black)
+                            }
                         }
-                        do {
-                            try moc.save()
-                        } catch {
-                            print("failed to save completed status \(error)")
-                        }
-                    } label: {
-                        TaskRowView(isTaskCompleted: isCompleted, taskName: name)
-                            .foregroundColor(.black)
                     }
+                    .sheet(isPresented: $showingCompletedSheet) {
+                        CompletedRoutineView(routine: self.associatedRoutine)
                 }
-                .sheet(isPresented: $showingCompletedSheet) {
-                    CompletedRoutineView(routine: self.associatedRoutine)
-                }
+        
             }
         }
 

@@ -23,28 +23,28 @@ struct SingleRoutineView: View {
     }
     
     var body: some View {
-        List {
+        ScrollView(.vertical) {
             ForEach(tasks) { task in
                 TaskView(task: task)
-            }
-        }
-        .sheet(isPresented: $showingTaskSheet) {
-            NewTaskView(routine: self.routine)
-        }
-        .navigationTitle(routine.wrappedTitle)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    showingTaskSheet.toggle()
-                } label: {
-                    HStack {
-                        Text("New Task")
-                        Image(systemName: "plus.circle")
-                            .foregroundColor(.green)
+                    }
+                .sheet(isPresented: $showingTaskSheet) {
+                    NewTaskView(routine: self.routine)
+                }
+                .navigationTitle(routine.wrappedTitle)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            showingTaskSheet.toggle()
+                        } label: {
+                            HStack {
+                                Text("New Task")
+                                Image(systemName: "plus.circle")
+                                    .foregroundColor(.green)
+                            }
+                        }
                     }
                 }
             }
-        }
     }
 }
 
