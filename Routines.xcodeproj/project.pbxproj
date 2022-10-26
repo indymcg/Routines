@@ -19,6 +19,7 @@
 		298A80852900D10700631DA3 /* Routine+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298A80812900D10700631DA3 /* Routine+CoreDataProperties.swift */; };
 		298A80892900D31900631DA3 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298A80882900D31900631DA3 /* PersistenceController.swift */; };
 		298A808B2900D66500631DA3 /* SingleRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298A808A2900D66500631DA3 /* SingleRoutineView.swift */; };
+		299AB9842908ADFD00068CF4 /* RoutineCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299AB9832908ADFD00068CF4 /* RoutineCardView.swift */; };
 		29CF4F892908631600D786DC /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CF4F882908631600D786DC /* TaskView.swift */; };
 		29CF4F912908672900D786DC /* RoutinesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CF4F902908672900D786DC /* RoutinesTests.swift */; };
 /* End PBXBuildFile section */
@@ -47,6 +48,7 @@
 		298A80812900D10700631DA3 /* Routine+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Routine+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		298A80882900D31900631DA3 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		298A808A2900D66500631DA3 /* SingleRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleRoutineView.swift; sourceTree = "<group>"; };
+		299AB9832908ADFD00068CF4 /* RoutineCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCardView.swift; sourceTree = "<group>"; };
 		29CF4F882908631600D786DC /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		29CF4F8E2908672900D786DC /* RoutinesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutinesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		29CF4F902908672900D786DC /* RoutinesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinesTests.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				298A808A2900D66500631DA3 /* SingleRoutineView.swift */,
 				29CF4F882908631600D786DC /* TaskView.swift */,
 				290B26BF29085BCB00FA30BA /* TaskRowView.swift */,
+				299AB9832908ADFD00068CF4 /* RoutineCardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				290B26C029085BCB00FA30BA /* TaskRowView.swift in Sources */,
 				29CF4F892908631600D786DC /* TaskView.swift in Sources */,
 				298A80702900CFF900631DA3 /* ContentView.swift in Sources */,
+				299AB9842908ADFD00068CF4 /* RoutineCardView.swift in Sources */,
 				298A806E2900CFF900631DA3 /* RoutinesApp.swift in Sources */,
 				298A80822900D10700631DA3 /* Task+CoreDataClass.swift in Sources */,
 				298A80852900D10700631DA3 /* Routine+CoreDataProperties.swift in Sources */,

@@ -17,46 +17,39 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                List {
-                ForEach(routines) { routine in
-                    NavigationLink {
-                        SingleRoutineView(routine: routine)
-                    } label:{
-                        HStack {
-                            Image(systemName: "circle")
-                                .foregroundColor(routine.allTasksCompleted ? .green : .red)
-                            Text(routine.wrappedTitle)
-                            Spacer()
-                            Text(routine.categorySelection.description)
-                                HStack {
-                                    Image(systemName: "clock.fill")
-                                    Text(routine.dueDate, style: .time)
+            ZStack {
+                Color("BackgroundColor")
+                    .ignoresSafeArea()
+                    ScrollView(.vertical) {
+                        ForEach(routines) { routine in
+                            NavigationLink {
+                                SingleRoutineView(routine: routine)
+                            } label:{
+                                    RoutineCardView(routineName: routine.title, categoryName: routine.categorySelection.description, date: routine.dueDate)
                                 }
                             }
-                        .padding()
+                        .frame(width: 400)
+                        }
+                    .navigationTitle("Routines")
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                showingSheet.toggle()
+                            } label: {
+                                HStack {
+                                    Text("New Routine")
+                                    Image(systemName: "plus.circle")
+                                        .foregroundColor(.green)
+                                }
+                            }
+                            .sheet(isPresented: $showingSheet) { NewRoutineView() }
                         }
                     }
-                }
-                
-            }
-            .navigationTitle("Routines")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        showingSheet.toggle()
-                    } label: {
-                        HStack {
-                            Text("New Routine")
-                            Image(systemName: "plus.circle")
-                        }
-                    }
-                    .sheet(isPresented: $showingSheet) { NewRoutineView() }
                 }
             }
         }
     }
-}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
