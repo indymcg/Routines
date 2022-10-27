@@ -12,13 +12,15 @@ import SwiftUI
 
 
 extension Routine {
-    static func createWith(title: String, dueDate: Date, categorySelection: Category, categoryValue: Int16, in moc: NSManagedObjectContext) {
+    static func createWith(title: String, startTime: Date, endTime: Date, categorySelection: Category, categoryValue: Int16, in moc: NSManagedObjectContext) {
         let newRoutine = self.init(context: moc)
         newRoutine.title = title
         newRoutine.id = UUID()
-        newRoutine.dueDate = dueDate
+        newRoutine.startTime = startTime
+        newRoutine.endTime = endTime
         newRoutine.allTasksCompleted = false
         newRoutine.categoryValue = categoryValue
+        newRoutine.progress = 0.0
         newRoutine.categorySelection = categorySelection
         
         do {
@@ -32,9 +34,11 @@ extension Routine {
 
     @NSManaged public var title: String
     @NSManaged public var id: UUID
-    @NSManaged public var dueDate: Date
+    @NSManaged public var startTime: Date
+    @NSManaged public var endTime: Date
     @NSManaged public var associatedTasks: [Task]
     @NSManaged public var allTasksCompleted: Bool
+    @NSManaged public var progress: Double
     @NSManaged public var categoryValue: Int16
     var categorySelection: Category {
         get {
@@ -85,34 +89,47 @@ extension Routine {
      }
      
      static func sortedFetchRequest() -> FetchRequest<Routine> {
-         let mySortDescriptor = NSSortDescriptor(key: "dueDate", ascending: true)
+         let mySortDescriptor = NSSortDescriptor(key: "startTime", ascending: true)
          return FetchRequest<Routine>(entity: Routine.entity(), sortDescriptors: [mySortDescriptor])
      }
     
-    func determineRoutineCompletion() {
+    func determineRoutineCompletion(in moc: NSManagedObjectContext) {
         var counter = 0
+        var percentage = (1 / (Double(associatedTasks.count)))
+
         for task in associatedTasks {
             if task.isCompleted {
                 counter += 1
+                progress += percentage
+                print("task num: \(counter), progress: \(progress)")
+                break
+            }
+            
+            
+            if counter == associatedTasks.count {
+                allTasksCompleted = true
+                print("all tasks complete")
             }
         }
-        if counter == associatedTasks.count {
-            allTasksCompleted = true
-            print("all tasks complete")
+        
+        do {
+            try moc.save()
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
         }
     }
     
-    func resetTaskCompletion() {
-        var currentTime = Date.now
-        print("current time: \(currentTime)")
-        print("dueDate: \(dueDate)")
-        if currentTime == dueDate {
-            allTasksCompleted = false 
-            for task in associatedTasks {
-                task.isCompleted = false
-            }
-        }
-    }
+//    func deleteTask(task: Task, in moc: NSManagedObjectContext) {
+//        do {
+//            moc.delete(task)
+//            do {
+//                try moc.save()
+//            } catch {
+//                print(error)
+//            }
+//        } 
+//    }
 
 }
 

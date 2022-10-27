@@ -9,8 +9,10 @@ import SwiftUI
 import CoreData
 
 struct SingleRoutineView: View {
+    @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     @State var showingTaskSheet = false
+    @State var showEditPopOver = false
     
     var routine: Routine
     var tasks: [Task]
@@ -24,50 +26,55 @@ struct SingleRoutineView: View {
     
     var body: some View {
         ScrollView(.vertical) {
-            ForEach(tasks) { task in
-                TaskView(task: task)
-                    }
+            HStack {
+                TasksHeaderView(routine: routine)
+                
+                Button {
+                    showingTaskSheet = true
+                } label: {
+                    EditButton()
+                }
+                
                 .sheet(isPresented: $showingTaskSheet) {
                     NewTaskView(routine: self.routine)
                 }
-                .navigationTitle(routine.wrappedTitle)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            showingTaskSheet.toggle()
-                        } label: {
-                            HStack {
-                                Text("New Task")
-                                Image(systemName: "plus.circle")
-                                    .foregroundColor(.green)
-                            }
-                        }
+            }            
+                ForEach(tasks) { task in
+                    TaskView(task: task)
+                }
+    
+            }
+
+        }
+    }
+
+
+struct TasksHeaderView: View {
+    let routine: Routine
+    @State var showEditPopOver = false
+    
+    var body: some View {
+            VStack(alignment: .leading) {
+                Text(routine.wrappedTitle)
+                    .font(.largeTitle)
+                HStack {
+                    Image(systemName: "clock.fill")
+                        .foregroundColor(.orange)
+                    
+                    HStack {
+                        Text(routine.startTime, style: .time)
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        Text("-")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        Text(routine.endTime, style: .time)
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
                     }
                 }
             }
-    }
-}
-
-struct CompletedRoutineView: View {
-    @Environment(\.dismiss) var dismiss
-    let routine: Routine
-    
-    var body: some View {
-        NavigationView {
-            VStack {
-                Text("You completed all tasks in your routine!")
-                    .font(.title)
-                
-                Button {
-                    routine.resetTaskCompletion()
-                    dismiss()
-                } label: {
-                    Text("Dismiss")
-                        .foregroundColor(.white)
-                        .background(.blue)
-                }
-                .padding()
-            }
-        }
+            .padding()
+            Spacer()
     }
 }

@@ -23,12 +23,7 @@ final class RoutinesTests: XCTestCase {
     }
 
     func testResetFunc() throws {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm"
-        routine.dueDate = formatter.date(from: "2022/10/25 12:00")!
-        
-        routine.resetTaskCompletion()
-        XCTAssertEqual(routine.allTasksCompleted, false)
+
     }
 
 }

@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		290B26C029085BCB00FA30BA /* TaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290B26BF29085BCB00FA30BA /* TaskRowView.swift */; };
+		290F41642909F167008B684E /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290F41632909F167008B684E /* Buttons.swift */; };
+		290F4168290AEE6C008B684E /* NewRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290F4167290AEE6C008B684E /* NewRoutineView.swift */; };
+		290F416A290AEE91008B684E /* NewTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290F4169290AEE91008B684E /* NewTaskView.swift */; };
+		290F416C290AEECF008B684E /* CustomAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290F416B290AEECF008B684E /* CustomAlerts.swift */; };
+		292167A5290B36230050951E /* EditMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292167A4290B36230050951E /* EditMenu.swift */; };
 		298A806E2900CFF900631DA3 /* RoutinesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298A806D2900CFF900631DA3 /* RoutinesApp.swift */; };
 		298A80702900CFF900631DA3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298A806F2900CFF900631DA3 /* ContentView.swift */; };
 		298A80722900CFF900631DA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 298A80712900CFF900631DA3 /* Assets.xcassets */; };
@@ -36,6 +41,11 @@
 
 /* Begin PBXFileReference section */
 		290B26BF29085BCB00FA30BA /* TaskRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRowView.swift; sourceTree = "<group>"; };
+		290F41632909F167008B684E /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		290F4167290AEE6C008B684E /* NewRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRoutineView.swift; sourceTree = "<group>"; };
+		290F4169290AEE91008B684E /* NewTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskView.swift; sourceTree = "<group>"; };
+		290F416B290AEECF008B684E /* CustomAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlerts.swift; sourceTree = "<group>"; };
+		292167A4290B36230050951E /* EditMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMenu.swift; sourceTree = "<group>"; };
 		298A806A2900CFF900631DA3 /* Routines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routines.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		298A806D2900CFF900631DA3 /* RoutinesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinesApp.swift; sourceTree = "<group>"; };
 		298A806F2900CFF900631DA3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -72,6 +82,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		290F4165290AEE4B008B684E /* Sheets */ = {
+			isa = PBXGroup;
+			children = (
+				290F4167290AEE6C008B684E /* NewRoutineView.swift */,
+				290F4169290AEE91008B684E /* NewTaskView.swift */,
+			);
+			path = Sheets;
+			sourceTree = "<group>";
+		};
+		290F4166290AEE51008B684E /* AddOns */ = {
+			isa = PBXGroup;
+			children = (
+				290F41632909F167008B684E /* Buttons.swift */,
+				290F416B290AEECF008B684E /* CustomAlerts.swift */,
+				292167A4290B36230050951E /* EditMenu.swift */,
+			);
+			path = AddOns;
+			sourceTree = "<group>";
+		};
 		298A80612900CFF900631DA3 = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +156,8 @@
 			isa = PBXGroup;
 			children = (
 				298A806F2900CFF900631DA3 /* ContentView.swift */,
+				290F4166290AEE51008B684E /* AddOns */,
+				290F4165290AEE4B008B684E /* Sheets */,
 				299AB9862908D9B300068CF4 /* Routines */,
 				299AB9852908D99300068CF4 /* Tasks */,
 			);
@@ -262,15 +293,20 @@
 				298A80842900D10700631DA3 /* Routine+CoreDataClass.swift in Sources */,
 				298A808B2900D66500631DA3 /* SingleRoutineView.swift in Sources */,
 				290B26C029085BCB00FA30BA /* TaskRowView.swift in Sources */,
+				290F416C290AEECF008B684E /* CustomAlerts.swift in Sources */,
 				29CF4F892908631600D786DC /* TaskView.swift in Sources */,
 				298A80702900CFF900631DA3 /* ContentView.swift in Sources */,
+				290F4168290AEE6C008B684E /* NewRoutineView.swift in Sources */,
 				299AB9842908ADFD00068CF4 /* RoutineCardView.swift in Sources */,
 				298A806E2900CFF900631DA3 /* RoutinesApp.swift in Sources */,
 				298A80822900D10700631DA3 /* Task+CoreDataClass.swift in Sources */,
 				298A80852900D10700631DA3 /* Routine+CoreDataProperties.swift in Sources */,
 				298A80832900D10700631DA3 /* Task+CoreDataProperties.swift in Sources */,
+				290F416A290AEE91008B684E /* NewTaskView.swift in Sources */,
 				298A807D2900D02500631DA3 /* Routines.xcdatamodeld in Sources */,
+				290F41642909F167008B684E /* Buttons.swift in Sources */,
 				298A80892900D31900631DA3 /* PersistenceController.swift in Sources */,
+				292167A5290B36230050951E /* EditMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,39 +17,36 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
+            
             ZStack {
                 Color("BackgroundColor")
                     .ignoresSafeArea()
-                    ScrollView(.vertical) {
-                        ForEach(routines) { routine in
-                            NavigationLink {
-                                SingleRoutineView(routine: routine)
-                            } label:{
-                                    RoutineCardView(routineName: routine.title, categoryName: routine.categorySelection.description, date: routine.dueDate)
-                                    .padding(.bottom, 5)
-                                }
-                            }
-                        .frame(width: 400)
-                        }
-                    .navigationTitle("Routines")
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button {
-                                showingSheet.toggle()
-                            } label: {
-                                HStack {
-                                    Text("New Routine")
-                                    Image(systemName: "plus.circle")
-                                        .foregroundColor(.green)
-                                }
-                            }
-                            .sheet(isPresented: $showingSheet) { NewRoutineView() }
+                ScrollView(.vertical) {
+                    HStack {
+                        HomePageTitle()
+                        
+                        Button {
+                            print("show sheet")
+                            showingSheet.toggle()
+                        } label: {
+                            AddButton()
+                                .padding()
                         }
                     }
+                    .sheet(isPresented: $showingSheet) {
+                        NewRoutineView()
+                    }
+                    
+                    RoutineBody(routines: routines)
+                    
+
                 }
             }
         }
+        
+        
     }
+}
 
 
 struct ContentView_Previews: PreviewProvider {
@@ -58,36 +55,37 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-struct NewRoutineView: View {
-    @Environment(\.dismiss) var dismiss
-    @Environment(\.managedObjectContext) var moc
-    @State var text: String = ""
-    @State var dueDate = Date()
-    @State var category: Routine.Category = .selfCare
-    let allCases = Routine.Category.allCases
+
+struct HomePageTitle: View {
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text("Today")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                Text(Date.now, style: .date)
+                    .font(.title)
+                    .fontWeight(.semibold)
+            }
+            .padding()
+            Spacer()
+        }
+    }
+}
+
+
+struct RoutineBody: View {
+    var routines: FetchedResults<Routine>
     
     var body: some View {
-        NavigationView {
-            Form {
-                Section {
-                    TextField("Title", text: $text)
-                    DatePicker("Date:", selection: $dueDate, displayedComponents: .date)
-                    Picker("Category:", selection: $category) {
-                        ForEach(allCases, id: \.self) { value in
-                            Text(value.description)
-                        }
-                    }
-                    
+        ForEach(routines) { routine in
+            NavigationLink {
+                SingleRoutineView(routine: routine)
+            } label:{
+                RoutineCardView(routineName: routine.title, categoryName: routine.categorySelection.description, startTime: routine.startTime, endTime: routine.endTime, progress: routine.progress)
+                    .padding(.bottom, 5)
                 }
             }
-            .navigationTitle("New Routine")
-            .navigationBarItems(trailing:
-            Button("Save") {
-                if !self.text.isEmpty {
-                    Routine.createWith(title: self.text, dueDate: self.dueDate, categorySelection: self.category, categoryValue: self.category.rawValue, in: moc)
-                    dismiss()
-                }
-            })
-        }
+
     }
 }
