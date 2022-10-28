@@ -17,11 +17,7 @@ struct TaskRowView: View {
                 .foregroundColor(Color("TagColor"))
                 .font(.title)
             Text(taskName)
-            Spacer()
         }
-        .frame(width: 350)
-        Divider()
-        .frame(width: 350)
     }
 }
 

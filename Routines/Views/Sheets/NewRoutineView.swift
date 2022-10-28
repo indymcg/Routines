@@ -28,7 +28,6 @@ struct NewRoutineView: View {
                             Text(value.description)
                         }
                     }
-                    
                 }
             }
             .navigationTitle("New Routine")

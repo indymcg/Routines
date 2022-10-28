@@ -119,18 +119,6 @@ extension Routine {
             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
         }
     }
-    
-//    func deleteTask(task: Task, in moc: NSManagedObjectContext) {
-//        do {
-//            moc.delete(task)
-//            do {
-//                try moc.save()
-//            } catch {
-//                print(error)
-//            }
-//        } 
-//    }
-
 }
 
 // MARK: Generated accessors for tasks

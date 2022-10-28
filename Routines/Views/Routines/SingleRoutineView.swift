@@ -11,8 +11,7 @@ import CoreData
 struct SingleRoutineView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
-    @State var showingTaskSheet = false
-    @State var showEditPopOver = false
+    @State var showingEditPopOver = false
     
     var routine: Routine
     var tasks: [Task]
@@ -25,28 +24,44 @@ struct SingleRoutineView: View {
     }
     
     var body: some View {
-        ScrollView(.vertical) {
-            HStack {
-                TasksHeaderView(routine: routine)
-                
-                Button {
-                    showingTaskSheet = true
-                } label: {
-                    EditButton()
+            VStack{
+                    HStack {
+                        TasksHeaderView(routine: routine)
+                        
+                        Button {
+                            showingEditPopOver = true
+                        } label: {
+                            EditButton()
+                        }
+                        
+                        .sheet(isPresented: $showingEditPopOver) {
+                            EditMenu(routine: self.routine)
+                        }
+                        
+                    }
+                List {
+                    ForEach(tasks) { task in
+                        TaskView(task: task)
+                    }
+                    .onDelete(perform: deleteTask)
                 }
-                
-                .sheet(isPresented: $showingTaskSheet) {
-                    NewTaskView(routine: self.routine)
-                }
-            }            
-                ForEach(tasks) { task in
-                    TaskView(task: task)
-                }
-    
+                .listStyle(.plain)
             }
 
         }
+    func deleteTask(at offsets: IndexSet) {
+        for index in offsets {
+            let task = tasks[index]
+            moc.delete(task)
+            }
+        
+        do {
+            try moc.save()
+        } catch {
+            print(error)
+        }
     }
+}
 
 
 struct TasksHeaderView: View {
