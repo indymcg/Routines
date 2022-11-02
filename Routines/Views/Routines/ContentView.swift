@@ -10,7 +10,8 @@ import CoreData
 
 struct ContentView: View {
     @State private var showingSheet = false
-    @FetchRequest(sortDescriptors: []) var routines: FetchedResults<Routine>
+    @FetchRequest(entity: Routine.entity(), sortDescriptors: [])
+    var routines: FetchedResults<Routine>
     
     var body: some View {
         NavigationView {
@@ -33,7 +34,14 @@ struct ContentView: View {
                         NewRoutineView()
                     }
                     
-                    RoutineBody(routines: routines)
+                    ForEach(routines) { routine in
+                        NavigationLink {
+                            SingleRoutineView(routine: routine)
+                        } label:{
+                            RoutineCardView(routine: routine)
+                                .padding(.bottom, 110)
+                            }
+                        }
                     
 
                 }
@@ -66,22 +74,5 @@ struct HomePageTitle: View {
             .padding()
             Spacer()
         }
-    }
-}
-
-
-struct RoutineBody: View {
-    var routines: FetchedResults<Routine>
-    
-    var body: some View {
-        ForEach(routines) { routine in
-            NavigationLink {
-                SingleRoutineView(routine: routine)
-            } label:{
-                RoutineCardView(routine: routine)
-                    .padding(.bottom, 110)
-                }
-            }
-
     }
 }

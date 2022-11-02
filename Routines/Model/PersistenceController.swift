@@ -8,24 +8,25 @@
 import CoreData
 
 class PersistenceController: ObservableObject {
+    let container: NSPersistentContainer
     static let shared = PersistenceController()
 
-    static var preview: PersistenceController = {
-      let result = PersistenceController(inMemory: true)
-      let viewContext = result.container.viewContext
-        
-        do {
-          try viewContext.save()
-        } catch {
-          let nsError = error as NSError
-          fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
-        return result
-      }()
-        let container: NSPersistentContainer
+//    static var preview: PersistenceController = {
+//      let result = PersistenceController(inMemory: true)
+//      let viewContext = result.container.viewContext
+//
+//        do {
+//          try viewContext.save()
+//        } catch {
+//          let nsError = error as NSError
+//          fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+//        }
+//        return result
+//      }()
     
     init(inMemory: Bool = false) {
       container = NSPersistentContainer(name: "Routines")
+        
       if inMemory {
         // swiftlint:disable:next force_unwrapping
         container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
@@ -43,17 +44,5 @@ class PersistenceController: ObservableObject {
       NSMergeByPropertyObjectTrumpMergePolicy
       container.viewContext.undoManager = nil
       container.viewContext.shouldDeleteInaccessibleFaults = true
-    }
-    
-    func save() {
-        let context = container.viewContext
-        
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                print(error)
-            }
-        }
     }
   }

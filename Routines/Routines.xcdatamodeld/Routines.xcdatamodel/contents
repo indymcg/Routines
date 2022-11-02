@@ -14,6 +14,6 @@
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isCompleted" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
-        <relationship name="associatedRoutine" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Routine" inverseName="associatedTasks" inverseEntity="Routine"/>
+        <relationship name="associatedRoutine" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Routine" inverseName="associatedTasks" inverseEntity="Routine"/>
     </entity>
 </model>

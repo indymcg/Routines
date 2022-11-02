@@ -80,7 +80,7 @@ struct TasksHeaderView: View {
     
     var body: some View {
             VStack(alignment: .leading) {
-                Text(routine.wrappedTitle)
+                Text(routine.title)
                     .font(.largeTitle)
                 HStack {
                     Image(systemName: "clock.fill")

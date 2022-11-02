@@ -15,7 +15,7 @@ struct EditRoutineView: View {
     @State var endTime = Date()
     @State var category: Routine.Category = .selfCare
     let allCases = Routine.Category.allCases
-    let routine: Routine
+    var routine: Routine
     
     var body: some View {
             NavigationView {
@@ -37,10 +37,10 @@ struct EditRoutineView: View {
                         self.category = routine.categorySelection
                     }
                 }
-                .navigationTitle("New Routine")
+                .navigationTitle("Edit Routine")
                 .navigationBarItems(trailing:
                 Button("Save") {
-                    Routine.updateRoutine(routine: routine, title: text, startTime: startTime, endTime: endTime, categorySelection: category, categoryValue: category.rawValue, in: moc)
+                    Routine.updateRoutine(routine: self.routine, title: text, startTime: startTime, endTime: endTime, categorySelection: category, categoryValue: category.rawValue, in: moc)
                     dismiss()
                 })
             }

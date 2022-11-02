@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RoutineCardView: View {
     @Environment(\.managedObjectContext) var moc
-    let routine: Routine
+    @ObservedObject var routine: Routine
     
     var body: some View {
         GeometryReader { geo in
@@ -36,11 +36,11 @@ struct RoutineCardView: View {
 //}
 
 struct TitleView: View {
-    let routine: Routine
+    @ObservedObject var routine: Routine
     
     var body: some View {
         HStack {
-            Text(routine.wrappedTitle)
+            Text(routine.title)
                 .font(.title)
                 .fontWeight(.bold)
             

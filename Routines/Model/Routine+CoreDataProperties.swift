@@ -43,7 +43,9 @@ extension Routine {
         routine.associatedTasks = routine.associatedTasks
         
         do {
-            try moc.save()
+            if moc.hasChanges {
+                try moc.save()
+            }
         } catch {
             let nserror = error as NSError
             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
@@ -68,11 +70,6 @@ extension Routine {
             self.categoryValue = newValue.rawValue
             print(categoryValue)
         }
-    }
-    
-    
-    public var wrappedTitle: String {
-        title ?? "New Routine"
     }
     
     @objc public enum Category: Int16, CaseIterable {
