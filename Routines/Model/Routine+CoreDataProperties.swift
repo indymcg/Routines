@@ -30,6 +30,26 @@ extension Routine {
             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
         }
     }
+    
+    static func updateRoutine(routine: Routine, title: String, startTime: Date, endTime: Date, categorySelection: Category, categoryValue: Int16, in moc: NSManagedObjectContext) {
+        routine.title = title
+        routine.id = routine.id
+        routine.startTime = startTime
+        routine.endTime = endTime
+        routine.allTasksCompleted = routine.allTasksCompleted
+        routine.categoryValue = categoryValue
+        routine.progress = routine.progress
+        routine.categorySelection = categorySelection
+        routine.associatedTasks = routine.associatedTasks
+        
+        do {
+            try moc.save()
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+        
+    }
 
 
     @NSManaged public var title: String
@@ -117,6 +137,15 @@ extension Routine {
         } catch {
             let nserror = error as NSError
             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+    }
+    
+    func deleteRoutine(routine: Routine, context: NSManagedObjectContext) {
+        context.delete(routine)
+        do {
+            try context.save()
+        } catch {
+            print(error)
         }
     }
 }

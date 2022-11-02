@@ -10,14 +10,10 @@ import CoreData
 
 struct ContentView: View {
     @State private var showingSheet = false
-    var routinesFetchRequest = Routine.sortedFetchRequest()
-    var routines: FetchedResults<Routine> {
-        routinesFetchRequest.wrappedValue
-    }
+    @FetchRequest(sortDescriptors: []) var routines: FetchedResults<Routine>
     
     var body: some View {
         NavigationView {
-            
             ZStack {
                 Color("BackgroundColor")
                     .ignoresSafeArea()
@@ -82,8 +78,8 @@ struct RoutineBody: View {
             NavigationLink {
                 SingleRoutineView(routine: routine)
             } label:{
-                RoutineCardView(routineName: routine.title, categoryName: routine.categorySelection.description, startTime: routine.startTime, endTime: routine.endTime, progress: routine.progress)
-                    .padding(.bottom, 5)
+                RoutineCardView(routine: routine)
+                    .padding(.bottom, 110)
                 }
             }
 

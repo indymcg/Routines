@@ -7,7 +7,7 @@
 
 import CoreData
 
-class PersistenceController {
+class PersistenceController: ObservableObject {
     static let shared = PersistenceController()
 
     static var preview: PersistenceController = {
@@ -43,5 +43,17 @@ class PersistenceController {
       NSMergeByPropertyObjectTrumpMergePolicy
       container.viewContext.undoManager = nil
       container.viewContext.shouldDeleteInaccessibleFaults = true
+    }
+    
+    func save() {
+        let context = container.viewContext
+        
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                print(error)
+            }
+        }
     }
   }

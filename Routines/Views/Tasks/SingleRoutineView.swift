@@ -11,44 +11,54 @@ import CoreData
 struct SingleRoutineView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
-    @State var showingEditPopOver = false
+    @State var showAddTaskSheet = false
     
     var routine: Routine
     var tasks: [Task]
-    var allRoutineTasksCompleted: Bool
     
     init(routine: Routine) {
         self.routine = routine
         self.tasks = routine.associatedTasks
-        self.allRoutineTasksCompleted = routine.allTasksCompleted
     }
     
     var body: some View {
-            VStack{
-                    HStack {
-                        TasksHeaderView(routine: routine)
-                        
-                        Button {
-                            showingEditPopOver = true
-                        } label: {
-                            EditButton()
+        NavigationView {
+                VStack {
+                        HStack {
+                            TasksHeaderView(routine: routine)
+                            
+                            Menu {
+                                    Button {
+                                        showAddTaskSheet = true
+                                    } label: {
+                                        Text("Add Task")
+                                    }
+                                    
+                                    Button {
+                                        routine.deleteRoutine(routine: routine, context: moc)
+                                    } label: {
+                                        Text("Delete Routine")
+                                    }
+                                } label: {
+                                    EditButton()
+                                }
+                            
+                            .sheet(isPresented: $showAddTaskSheet) {
+                                NewTaskView(routine: routine)
+                            }
                         }
-                        
-                        .sheet(isPresented: $showingEditPopOver) {
-                            EditMenu(routine: self.routine)
+                    List {
+                        ForEach(tasks) { task in
+                            TaskView(task: task)
                         }
-                        
+                        .onDelete(perform: deleteTask)
                     }
-                List {
-                    ForEach(tasks) { task in
-                        TaskView(task: task)
-                    }
-                    .onDelete(perform: deleteTask)
-                }
-                .listStyle(.plain)
+                    .listStyle(.plain)
             }
-
+            
         }
+
+    }
     func deleteTask(at offsets: IndexSet) {
         for index in offsets {
             let task = tasks[index]

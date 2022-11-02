@@ -8,11 +8,8 @@
 import SwiftUI
 
 struct RoutineCardView: View {
-    let routineName: String
-    let categoryName: String
-    let startTime: Date
-    let endTime: Date
-    let progress: Double
+    @Environment(\.managedObjectContext) var moc
+    let routine: Routine
     
     var body: some View {
         GeometryReader { geo in
@@ -21,8 +18,8 @@ struct RoutineCardView: View {
                         .foregroundColor(.white)
                         .shadow(color: .gray, radius: 1.0)
                     VStack(alignment: .leading, spacing: 5) {
-                        TitleView(routineName: routineName)
-                        BodyView(categoryName: categoryName, startTime: startTime, endTime: endTime, progress: progress)
+                        TitleView(routine: routine)
+                        BodyView(categoryName: routine.categorySelection.description, startTime: routine.startTime, endTime: routine.endTime, progress: routine.progress)
                             }
                         .padding()
                         }
@@ -32,28 +29,25 @@ struct RoutineCardView: View {
         }
     }
 
-struct RoutineCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        RoutineCardView(routineName: "My Routine", categoryName: "Self Care", startTime: Date.now, endTime: Date.now, progress: 0.25)
-    }
-}
+//struct RoutineCardView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RoutineCardView(routineName: "My Routine", categoryName: "Work", startTime: Date.now, endTime: Date.now, progress: 0.25)
+//    }
+//}
 
 struct TitleView: View {
-    let routineName: String
+    let routine: Routine
     
     var body: some View {
         HStack {
-            Text(routineName)
+            Text(routine.wrappedTitle)
                 .font(.title)
                 .fontWeight(.bold)
             
             Spacer()
             
-            Button {
-                print("edit/delete")
-            } label: {
-                EditButton()
-            }
+            RoutineEditMenu(routine: routine)
+
         }
     }
 }
@@ -70,7 +64,7 @@ struct BodyView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
                         .frame(width: 80, height: 25)
-                        .foregroundColor(Color("TagColor"))
+                        .foregroundColor(Color(getCategoryTagColor(categoryName: categoryName)))
                     Text(categoryName)
                         .font(.body)
                         .foregroundColor(.white)
@@ -78,7 +72,7 @@ struct BodyView: View {
                 
                 HStack {
                     Image(systemName: "clock.fill")
-                        .foregroundColor(.orange)
+                        .foregroundColor(.gray)
                     Text(startTime, style: .time)
                         .foregroundColor(.gray)
                     Text("-")
@@ -90,6 +84,23 @@ struct BodyView: View {
                 .offset(x: 180, y: -10)
         }
     }
+    
+    func getCategoryTagColor(categoryName for: String) -> String {
+        switch categoryName {
+        case "Self Care":
+            return "SelfcareColor"
+        case "Work":
+            return "WorkColor"
+        case "Chores":
+            return "ChoresColor"
+        case "School":
+            return "SchoolColor"
+        case "Other":
+            return "TagColor"
+        default:
+            return "TagColor"
+        }
+    }
 }
 
 struct ProgressBarView: View {
@@ -98,13 +109,13 @@ struct ProgressBarView: View {
     var body: some View {
         ZStack {
             Circle()
-                .stroke(lineWidth: 3)
-                .foregroundColor(.gray)
+                .stroke(lineWidth: 5)
+                .foregroundColor(Color("GrayishColor"))
                 .frame(width: 70, height: 70)
             
              Circle()
                  .trim(from: 0, to: progress)
-                 .stroke(lineWidth: 3)
+                 .stroke(lineWidth: 5)
                  .foregroundColor(.green)
                  .frame(width: 70, height: 70)
                  .rotationEffect(.degrees(-90))
