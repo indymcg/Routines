@@ -8,8 +8,23 @@
 import SwiftUI
 
 struct RoutineCompleteView: View {
+    @State var animating = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Image(systemName: "checkmark.circle.fill")
+                .font(animating ? .largeTitle : .headline)
+                .offset(y: -10)
+                .foregroundColor(Color("TagColor"))
+            
+            Text("Great job!")
+                .font(.title3)
+                .kerning(1.0)
+        }
+        .animation(.spring(response: 1.0, blendDuration: 3.0), value: animating)
+        .onAppear {
+            animating.toggle()
+        }
     }
 }
 

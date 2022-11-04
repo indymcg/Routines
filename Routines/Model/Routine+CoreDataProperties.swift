@@ -56,8 +56,8 @@ extension Routine {
 
     @NSManaged public var title: String
     @NSManaged public var id: UUID
-    @NSManaged public var startTime: Date
-    @NSManaged public var endTime: Date
+    @NSManaged public var startTime: Date?
+    @NSManaged public var endTime: Date?
     @NSManaged public var associatedTasks: [Task]
     @NSManaged public var allTasksCompleted: Bool
     @NSManaged public var progress: Double
@@ -70,6 +70,14 @@ extension Routine {
             self.categoryValue = newValue.rawValue
             print(categoryValue)
         }
+    }
+    
+    var wrappedStartTime: Date {
+        startTime ?? Date.now
+    }
+    
+    var wrappedEndTime: Date {
+        endTime ?? Date.now
     }
     
     @objc public enum Category: Int16, CaseIterable {
@@ -110,6 +118,16 @@ extension Routine {
          return FetchRequest<Routine>(entity: Routine.entity(), sortDescriptors: [mySortDescriptor])
      }
     
+//    func resetRoutineProgress(routine: Routine) {
+//        if allTasksCompleted {
+//            print("reset")
+//            progress = 0.0
+//        } else if Date.now >= routine.startTime && Date.now <= routine.endTime {
+//            print("out of time")
+//            progress = 0.0
+//        }
+//    }
+    
     func determineRoutineCompletion(in moc: NSManagedObjectContext) {
         var counter = 0
         var percentage = (1 / (Double(associatedTasks.count)))
@@ -117,16 +135,15 @@ extension Routine {
         for task in associatedTasks {
             if task.isCompleted {
                 counter += 1
-                progress += percentage
-                print("task num: \(counter), progress: \(progress)")
+                progress = percentage
+                print("task num: \(counter), percentage: \(percentage), progress: \(progress)")
                 break
             }
-            
-            
-            if counter == associatedTasks.count {
-                allTasksCompleted = true
-                print("all tasks complete")
-            }
+        }
+        
+        if counter == associatedTasks.count {
+            allTasksCompleted = true
+            print("all tasks complete")
         }
         
         do {

@@ -32,8 +32,8 @@ struct EditRoutineView: View {
                     }
                     .onAppear {
                         self.text = routine.title
-                        self.startTime = routine.startTime
-                        self.endTime = routine.endTime
+                        self.startTime = routine.wrappedStartTime
+                        self.endTime = routine.wrappedEndTime
                         self.category = routine.categorySelection
                     }
                 }

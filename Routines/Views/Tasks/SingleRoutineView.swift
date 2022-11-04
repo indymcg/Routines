@@ -12,6 +12,7 @@ struct SingleRoutineView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     @State var showAddTaskSheet = false
+    @State var showCompletedView = false
     
     var routine: Routine
     var tasks: [Task]
@@ -29,7 +30,11 @@ struct SingleRoutineView: View {
                             
                             Menu {
                                     Button {
-                                        showAddTaskSheet = true
+                                        if !routine.allTasksCompleted {
+                                            showAddTaskSheet = true
+                                        } else {
+                                            print("cannot add new tasks to completed routine")
+                                        }
                                     } label: {
                                         Text("Add Task")
                                     }
@@ -43,10 +48,15 @@ struct SingleRoutineView: View {
                                     EditButton()
                                 }
                             
+                            .sheet(isPresented: $showCompletedView) {
+                                    RoutineCompleteView()
+                                }
+                            
                             .sheet(isPresented: $showAddTaskSheet) {
                                 NewTaskView(routine: routine)
                             }
                         }
+                    
                     List {
                         ForEach(tasks) { task in
                             TaskView(task: task)
@@ -87,13 +97,13 @@ struct TasksHeaderView: View {
                         .foregroundColor(.orange)
                     
                     HStack {
-                        Text(routine.startTime, style: .time)
+                        Text(routine.wrappedStartTime, style: .time)
                             .font(.subheadline)
                             .foregroundColor(.gray)
                         Text("-")
                             .font(.subheadline)
                             .foregroundColor(.gray)
-                        Text(routine.endTime, style: .time)
+                        Text(routine.wrappedEndTime, style: .time)
                             .font(.subheadline)
                             .foregroundColor(.gray)
                     }

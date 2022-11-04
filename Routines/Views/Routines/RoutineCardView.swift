@@ -19,7 +19,7 @@ struct RoutineCardView: View {
                         .shadow(color: .gray, radius: 1.0)
                     VStack(alignment: .leading, spacing: 5) {
                         TitleView(routine: routine)
-                        BodyView(categoryName: routine.categorySelection.description, startTime: routine.startTime, endTime: routine.endTime, progress: routine.progress)
+                        BodyView(routine: routine)
                             }
                         .padding()
                         }
@@ -53,10 +53,7 @@ struct TitleView: View {
 }
 
 struct BodyView: View {
-    let categoryName: String
-    let startTime: Date
-    let endTime: Date
-    let progress: Double
+    @ObservedObject var routine: Routine
     
     var body: some View {
         ZStack {
@@ -64,8 +61,8 @@ struct BodyView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
                         .frame(width: 80, height: 25)
-                        .foregroundColor(Color(getCategoryTagColor(categoryName: categoryName)))
-                    Text(categoryName)
+                        .foregroundColor(Color(getCategoryTagColor(categoryName: routine.categorySelection.description)))
+                    Text(routine.categorySelection.description)
                         .font(.body)
                         .foregroundColor(.white)
                     }
@@ -73,20 +70,20 @@ struct BodyView: View {
                 HStack {
                     Image(systemName: "clock.fill")
                         .foregroundColor(.gray)
-                    Text(startTime, style: .time)
+                    Text(routine.wrappedStartTime, style: .time)
                         .foregroundColor(.gray)
                     Text("-")
-                    Text(endTime, style: .time)
+                    Text(routine.wrappedEndTime, style: .time)
                         .foregroundColor(.gray)
                 }
             }
-            ProgressBarView(progress: progress)
-                .offset(x: 180, y: -10)
+            ProgressBarView(progress: routine.progress)
+                .offset(x: 180, y: 0)
         }
     }
     
     func getCategoryTagColor(categoryName for: String) -> String {
-        switch categoryName {
+        switch routine.categorySelection.description {
         case "Self Care":
             return "SelfcareColor"
         case "Work":

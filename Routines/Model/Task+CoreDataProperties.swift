@@ -26,6 +26,19 @@ extension Task {
             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
         }
     }
+    
+    static func updateTask(task: Task, name: String, using moc: NSManagedObjectContext) {
+        task.name = name
+        
+        do {
+            if moc.hasChanges {
+                try moc.save()
+            }
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+    }
 
     @NSManaged public var name: String?
     @NSManaged public var id: UUID?
