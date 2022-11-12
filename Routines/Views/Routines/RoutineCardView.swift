@@ -29,12 +29,6 @@ struct RoutineCardView: View {
         }
     }
 
-//struct RoutineCardView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RoutineCardView(routineName: "My Routine", categoryName: "Work", startTime: Date.now, endTime: Date.now, progress: 0.25)
-//    }
-//}
-
 struct TitleView: View {
     @ObservedObject var routine: Routine
     

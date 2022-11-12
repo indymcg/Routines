@@ -31,7 +31,7 @@ extension Task {
         task.name = name
         
         do {
-            if moc.hasChanges {
+            if moc.hasChanges && !name.isEmpty {
                 try moc.save()
             }
         } catch {

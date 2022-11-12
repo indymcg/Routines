@@ -13,14 +13,8 @@ struct SingleRoutineView: View {
     @Environment(\.dismiss) var dismiss
     @State var showAddTaskSheet = false
     @State var showCompletedView = false
-    
-    var routine: Routine
-    var tasks: [Task]
-    
-    init(routine: Routine) {
-        self.routine = routine
-        self.tasks = routine.associatedTasks
-    }
+    @State var showDeletionAlert = false
+    @ObservedObject var routine: Routine
     
     var body: some View {
         NavigationView {
@@ -44,21 +38,37 @@ struct SingleRoutineView: View {
                                     } label: {
                                         Text("Delete Routine")
                                     }
+                                
+                                    Button {
+                                        routine.resetRoutineProgress(routine: routine)
+                                    } label: {
+                                        Text("Reset")
+                                    }
                                 } label: {
                                     EditButton()
                                 }
                             
-                            .sheet(isPresented: $showCompletedView) {
-                                    RoutineCompleteView()
-                                }
+                            
+                                .onChange(of: routine.allTasksCompleted, perform: { _ in
+                                    showCompletedView = true
+                                })
+                            
                             
                             .sheet(isPresented: $showAddTaskSheet) {
                                 NewTaskView(routine: routine)
                             }
+                            
+                            .sheet(isPresented: $showCompletedView) {
+                                    RoutineCompleteView()
+                            }
+                            
+                            .alert(isPresented: $showDeletionAlert) {
+                                Alert(title: Text("Oops!"), message: Text("Completed tasks cannot be deleted."), dismissButton: .default(Text("OK")))
+                            }
                         }
-                    
+ 
                     List {
-                        ForEach(tasks) { task in
+                        ForEach(routine.associatedTasks) { task in
                             TaskView(task: task)
                         }
                         .onDelete(perform: deleteTask)
@@ -69,11 +79,17 @@ struct SingleRoutineView: View {
         }
 
     }
+    
     func deleteTask(at offsets: IndexSet) {
         for index in offsets {
-            let task = tasks[index]
-            moc.delete(task)
+            let task = routine.associatedTasks[index]
+            if !task.isCompleted {
+                moc.delete(task)
+            } else {
+                showDeletionAlert = true
+                print("cannot delete")
             }
+        }
         
         do {
             try moc.save()

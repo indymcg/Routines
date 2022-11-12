@@ -26,6 +26,12 @@ struct RoutineEditMenu: View {
                     } label: {
                         Text("Delete")
                     }
+                
+                    Button {
+                        routine.resetRoutineProgress(routine: routine)
+                    } label: {
+                        Text("Reset")
+                    }
             } label: {
                 EditButton()
             }

@@ -168,8 +168,6 @@
 		299AB9852908D99300068CF4 /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
-				2991492A290C9F7A004125BB /* RoutineCompleteView.swift */,
-				298A808A2900D66500631DA3 /* SingleRoutineView.swift */,
 				290B26BF29085BCB00FA30BA /* TaskRowView.swift */,
 				29CF4F882908631600D786DC /* TaskView.swift */,
 			);
@@ -180,6 +178,8 @@
 			isa = PBXGroup;
 			children = (
 				298A806F2900CFF900631DA3 /* ContentView.swift */,
+				298A808A2900D66500631DA3 /* SingleRoutineView.swift */,
+				2991492A290C9F7A004125BB /* RoutineCompleteView.swift */,
 				299AB9832908ADFD00068CF4 /* RoutineCardView.swift */,
 			);
 			path = Routines;

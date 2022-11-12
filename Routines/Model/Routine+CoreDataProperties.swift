@@ -58,7 +58,7 @@ extension Routine {
     @NSManaged public var id: UUID
     @NSManaged public var startTime: Date?
     @NSManaged public var endTime: Date?
-    @NSManaged public var associatedTasks: [Task]
+    @NSManaged public var associatedTasks: [Task] 
     @NSManaged public var allTasksCompleted: Bool
     @NSManaged public var progress: Double
     @NSManaged public var categoryValue: Int16
@@ -118,32 +118,33 @@ extension Routine {
          return FetchRequest<Routine>(entity: Routine.entity(), sortDescriptors: [mySortDescriptor])
      }
     
-//    func resetRoutineProgress(routine: Routine) {
-//        if allTasksCompleted {
-//            print("reset")
-//            progress = 0.0
-//        } else if Date.now >= routine.startTime && Date.now <= routine.endTime {
-//            print("out of time")
-//            progress = 0.0
-//        }
-//    }
+    func resetRoutineProgress(routine: Routine) {
+        if allTasksCompleted {
+            print("reset")
+            progress = 0.0
+            allTasksCompleted = false 
+            for task in associatedTasks {
+                task.isCompleted = false
+            }
+        }
+    }
     
-    func determineRoutineCompletion(in moc: NSManagedObjectContext) {
-        var counter = 0
-        var percentage = (1 / (Double(associatedTasks.count)))
-
+    func getRoutineProgress() {
+        var percentage = 1 / (Double(associatedTasks.count))
         for task in associatedTasks {
             if task.isCompleted {
-                counter += 1
-                progress = percentage
-                print("task num: \(counter), percentage: \(percentage), progress: \(progress)")
+                progress += percentage
                 break
             }
         }
+    }
+    
+    func determineRoutineCompletion(in moc: NSManagedObjectContext) {
+        getRoutineProgress()
         
-        if counter == associatedTasks.count {
+        if progress == 1 {
             allTasksCompleted = true
-            print("all tasks complete")
+            print("all tasks complete: \(progress)")
         }
         
         do {

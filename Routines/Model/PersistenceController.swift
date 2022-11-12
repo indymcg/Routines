@@ -28,7 +28,6 @@ class PersistenceController: ObservableObject {
       container = NSPersistentContainer(name: "Routines")
         
       if inMemory {
-        // swiftlint:disable:next force_unwrapping
         container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
       }
       container.loadPersistentStores { _, error in
@@ -39,9 +38,7 @@ class PersistenceController: ObservableObject {
       container.viewContext.automaticallyMergesChangesFromParent = true
 
       container.viewContext.name = "viewContext"
-      /// - Tag: viewContextMergePolicy
-      container.viewContext.mergePolicy =
-      NSMergeByPropertyObjectTrumpMergePolicy
+      container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
       container.viewContext.undoManager = nil
       container.viewContext.shouldDeleteInaccessibleFaults = true
     }
