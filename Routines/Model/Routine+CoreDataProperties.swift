@@ -80,6 +80,7 @@ extension Routine {
         endTime ?? Date.now
     }
     
+    
     @objc public enum Category: Int16, CaseIterable {
        case selfCare = 0
        case work = 1
@@ -119,19 +120,19 @@ extension Routine {
      }
     
     func resetRoutineProgress(routine: Routine) {
-        if allTasksCompleted {
-            print("reset")
-            progress = 0.0
-            allTasksCompleted = false 
-            for task in associatedTasks {
-                task.isCompleted = false
-            }
+        print("reset")
+        progress = 0.0
+        for task in associatedTasks {
+            task.isCompleted = false
         }
+        allTasksCompleted = false
     }
     
     func getRoutineProgress() {
-        var percentage = 1 / (Double(associatedTasks.count))
+        //print(associatedTasks.count)
         for task in associatedTasks {
+            var percentage = 1 / (Double(associatedTasks.count))
+            print(percentage)
             if task.isCompleted {
                 progress += percentage
                 break
@@ -141,8 +142,9 @@ extension Routine {
     
     func determineRoutineCompletion(in moc: NSManagedObjectContext) {
         getRoutineProgress()
+        let completionRequirement = 1.0
         
-        if progress == 1 {
+        if progress == completionRequirement {
             allTasksCompleted = true
             print("all tasks complete: \(progress)")
         }
